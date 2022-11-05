@@ -36,7 +36,7 @@ Route::post('/login', function () {
 
     $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
 
-    $cookie = cookie("access_token", $jwt, 30, '/', config('auth.front_end_top_level_domain'), true, true, false, 'None');
+    $cookie = cookie("access_token", $jwt, 30, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Lax');
 
     return response()->json('success', 200)->withCookie($cookie);
 });
