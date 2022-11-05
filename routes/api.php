@@ -43,5 +43,11 @@ Route::post('/login', function () {
 
 
 Route::get('/auth-protected-route', function () {
-    return response()->json('authenticated successfuly', 200);
+    return response()->json(
+        [
+            'message' => 'authenticated successfuly',
+            'user' => jwtUser()
+        ],
+        200
+    );
 })->middleware('jwt.auth');
