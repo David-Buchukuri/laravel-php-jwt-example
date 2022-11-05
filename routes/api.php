@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +30,8 @@ Route::post('/login', function () {
     }
 
     $payload = [
-        'issued_at' => Carbon::now()->timestamp,
-        'valid_till' => Carbon::now()->addMinute(30)->timestamp,
+        'validTill' => Carbon::now()->addMinutes(30)->timestamp,
+        'userId' => User::where('email', '=', request()->email)->first()->id,
     ];
 
     $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
@@ -39,3 +40,8 @@ Route::post('/login', function () {
 
     return response()->json('success', 200)->withCookie($cookie);
 });
+
+
+Route::get('/auth-protected-route', function () {
+    return response()->json('authenticated successfuly', 200);
+})->middleware('jwt.auth');
