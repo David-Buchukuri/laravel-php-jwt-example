@@ -41,6 +41,28 @@ Route::post('/login', function () {
     return response()->json('success', 200)->withCookie($cookie);
 });
 
+Route::post('/swagger-login', function () {
+    $autheticated = auth()->attempt(
+        [
+            'email' => request()->email,
+            'password' => request()->password,
+        ]
+    );
+
+    if (!$autheticated) {
+        return response()->json('wrong email or password', 401);
+    }
+
+    $payload = [
+        'validTill' => Carbon::now()->addMinutes(30)->timestamp,
+        'userId' => User::where('email', '=', request()->email)->first()->id,
+    ];
+
+    $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
+
+    return response()->json(['access_token' => $jwt], 200);
+});
+
 
 Route::get('/auth-protected-route', function () {
     return response()->json(
