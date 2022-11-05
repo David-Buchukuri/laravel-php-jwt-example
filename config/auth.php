@@ -108,8 +108,8 @@ return [
 
     'password_timeout' => 10800,
 
-    'jwt_secret' => 'my_super_secret_key',
+    'jwt_secret' => env('JWT_SECRET'),
 
-    'front_end_top_level_domain' => '127.0.0.1'
+    'front_end_top_level_domain' => env('FRONT_TOP_LEVEL_DOMAIN')
 
 ];
