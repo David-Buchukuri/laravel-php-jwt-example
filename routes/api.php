@@ -25,6 +25,6 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/me', [AuthController::class, 'me'])->middleware('jwt.auth');
 
-Route::post('/swagger-login', [SwaggerController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('jwt.auth');
 
-Route::get('/auth-protected-route', [AuthController::class, 'me'])->middleware('jwt.auth');
+Route::post('/swagger-login', [SwaggerController::class, 'login']);
