@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SwaggerController;
 use App\Models\User;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
@@ -17,59 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/login', function () {
-    $autheticated = auth()->attempt(
-        [
-            'email' => request()->email,
-            'password' => request()->password,
-        ]
-    );
+Route::post('/login', [AuthController::class, 'login']);
 
-    if (!$autheticated) {
-        return response()->json('wrong email or password', 401);
-    }
+Route::post('/register', [AuthController::class, 'register']);
 
-    $payload = [
-        'validTill' => Carbon::now()->addMinutes(30)->timestamp,
-        'userId' => User::where('email', '=', request()->email)->first()->id,
-    ];
+Route::get('/me', [AuthController::class, 'me'])->middleware('jwt.auth');
 
-    $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
+Route::post('/swagger-login', [SwaggerController::class, 'login']);
 
-    $cookie = cookie("access_token", $jwt, 30, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Lax');
-
-    return response()->json('success', 200)->withCookie($cookie);
-});
-
-Route::post('/swagger-login', function () {
-    $autheticated = auth()->attempt(
-        [
-            'email' => request()->email,
-            'password' => request()->password,
-        ]
-    );
-
-    if (!$autheticated) {
-        return response()->json('wrong email or password', 401);
-    }
-
-    $payload = [
-        'validTill' => Carbon::now()->addMinutes(30)->timestamp,
-        'userId' => User::where('email', '=', request()->email)->first()->id,
-    ];
-
-    $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
-
-    return response()->json(['access_token' => $jwt], 200);
-});
-
-
-Route::get('/auth-protected-route', function () {
-    return response()->json(
-        [
-            'message' => 'authenticated successfuly',
-            'user' => jwtUser()
-        ],
-        200
-    );
-})->middleware('jwt.auth');
+Route::get('/auth-protected-route', [AuthController::class, 'me'])->middleware('jwt.auth');
