@@ -15,6 +15,8 @@ class AuthController extends Controller
             'password'  => bcrypt(request()->password),
             'name'  => request()->name
         ]);
+
+        return response()->json(['message' => 'user created successfully'], 201);
     }
 
     public function login()
