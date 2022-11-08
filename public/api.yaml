@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Coronatime API
+  title: Swagger Example API
   description: Here goes description
   version: 0.1.9
 
