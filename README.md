@@ -23,13 +23,9 @@ git clone https://github.com/David-Buchukuri/laravel-php-jwt-example
 
 <br>
 
-<br>
-
 ```sh
 composer install
 ```
-
-<br>
 
 <br>
 
@@ -47,8 +43,6 @@ php artisan key:generate
 
 4\. Now we need to set our env file. Go to the root of your project and execute this command.
 
-<br>
-
 ```sh
 cp .env.example .env
 ```
@@ -56,8 +50,6 @@ cp .env.example .env
 <br>
 
 And now you should write inside of a **.env** file all necessary environment variables:
-
-#
 
 #
 
@@ -128,8 +120,6 @@ php artisan migrate
 
 You can run Laravel's built-in development server by executing:
 
-<br>
-
 ```sh
   php artisan serve
 ```
@@ -137,8 +127,6 @@ You can run Laravel's built-in development server by executing:
 <br>
 
 when working on swagger:
-
-<br>
 
 ```sh
   npm run dev
