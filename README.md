@@ -18,7 +18,7 @@
 <br>
 
 ```sh
-git clone https://github.com/David-Buchukuri/vue-php-jwt-example
+git clone https://github.com/David-Buchukuri/laravel-php-jwt-example
 ```
 
 <br>
@@ -106,9 +106,6 @@ if you want to run this project locally, your domain most likely will be `127.0.
 
 if you want to run this project in production, make sure to put here, the top level domain of your front end
 
-<br>
-
-<br>
 <br>
 
 #
