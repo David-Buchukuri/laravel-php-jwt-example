@@ -45,9 +45,9 @@ paths:
                 password:
                   type: string  
 
-  /auth-protected-route:
+  /me:
     get:
-      summary: example for auth protected route, which returns data about authenticated user
+      summary: retreives information about authenticated user
       security:
       - bearerAuth: []
       responses:
@@ -58,9 +58,14 @@ paths:
               schema: 
                 type: object
                 properties: 
-                  id:
-                    type: integer
-                  email:  
-                     type: string
-                  created_at:
-                    type: string
+                  user:
+                    type: object
+                    properties:  
+                      id:
+                        type: integer
+                      email:  
+                        type: string
+                      created_at:
+                        type: string
+                  message:
+                    type: string      
