@@ -35,16 +35,16 @@ npm install
 
 <br>
 
-```sh
-php artisan key:generate
-```
-
-<br>
-
 4\. Now we need to set our env file. Go to the root of your project and execute this command.
 
 ```sh
 cp .env.example .env
+```
+
+<br>
+
+```sh
+php artisan key:generate
 ```
 
 <br>
