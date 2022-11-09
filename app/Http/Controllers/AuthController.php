@@ -39,14 +39,14 @@ class AuthController extends Controller
 
         $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
 
-        $cookie = cookie("access_token", $jwt, 30, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Lax');
+        $cookie = cookie("access_token", $jwt, 30, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Strict');
 
         return response()->json('success', 200)->withCookie($cookie);
     }
 
     public function logout()
     {
-        $cookie = cookie("access_token", '', 0, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Lax');
+        $cookie = cookie("access_token", '', 0, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Strict');
 
         return response()->json('success', 200)->withCookie($cookie);
     }
