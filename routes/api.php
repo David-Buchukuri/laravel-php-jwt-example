@@ -26,6 +26,9 @@ Route::get('/me', [AuthController::class, 'me'])->middleware('jwt.auth');
 
 Route::delete('/items', [ItemController::class, 'delete'])->middleware('jwt.auth');
 
+// voulnerable if cookie is set to lax and user is redirected from attacker's website to this route
+Route::get('/delete-items', [ItemController::class, 'delete'])->middleware('jwt.auth');
+
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('jwt.auth');
 
 Route::post('/swagger-login', [SwaggerController::class, 'login']);
