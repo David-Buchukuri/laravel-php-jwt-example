@@ -34,8 +34,8 @@ class AuthController extends Controller
         }
 
         $payload = [
-            'validTill' => Carbon::now()->addMinutes(30)->timestamp,
-            'userId' => User::where('email', '=', request()->email)->first()->id,
+            'exp' => Carbon::now()->addSeconds(30)->timestamp,
+            'uid' => User::where('email', '=', request()->email)->first()->id,
         ];
 
         $jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');

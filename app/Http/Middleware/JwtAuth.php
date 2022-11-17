@@ -37,7 +37,7 @@ class JwtAuth
                 )
             );
 
-            if ($decoded->validTill > Carbon::now()->timestamp) {
+            if ($decoded->exp > Carbon::now()->timestamp) {
                 return $next($request);
             }
 

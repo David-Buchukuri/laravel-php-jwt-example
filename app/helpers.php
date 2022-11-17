@@ -16,7 +16,7 @@ function jwtUser()
             new Key(config('auth.jwt_secret'), 'HS256')
         );
 
-        return User::find($decoded->userId);
+        return User::find($decoded->uid);
     } catch (Exception $e) {
         return null;
     }
