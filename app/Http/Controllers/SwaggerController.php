@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
+use Illuminate\Http\JsonResponse;
 
 class SwaggerController extends Controller
 {
-    public function login()
+    public function login(): JsonResponse
     {
-        $autheticated = auth()->attempt(
+        $authenticated = auth()->attempt(
             [
                 'email' => request()->email,
                 'password' => request()->password,
             ]
         );
 
-        if (!$autheticated) {
+        if (!$authenticated) {
             return response()->json('wrong email or password', 401);
         }
 

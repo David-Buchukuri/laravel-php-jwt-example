@@ -18,17 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/me', [AuthController::class, 'me'])->middleware('jwt.auth');
+Route::get('/me', [AuthController::class, 'me'])->middleware('jwt.auth')->name('me');
 
-Route::delete('/items', [ItemController::class, 'delete'])->middleware('jwt.auth');
+Route::delete('/items', [ItemController::class, 'delete'])->middleware('jwt.auth')->name('items.delete');
 
-// voulnerable if cookie is set to lax and user is redirected from attacker's website to this route
+// vulnerable if cookie is set to lax and user is redirected from attacker's website to this route
 Route::get('/delete-items', [ItemController::class, 'delete'])->middleware('jwt.auth');
 
-Route::get('/logout', [AuthController::class, 'logout'])->middleware('jwt.auth');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('jwt.auth')->name('logout');
 
-Route::post('/swagger-login', [SwaggerController::class, 'login']);
+Route::post('/swagger-login', [SwaggerController::class, 'login'])->name('swagger_login');

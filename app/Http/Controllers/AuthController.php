@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    public function register()
+    public function register(): JsonResponse
     {
         User::create([
             'email' => request()->email,
@@ -19,16 +20,16 @@ class AuthController extends Controller
         return response()->json(['message' => 'user created successfully'], 201);
     }
 
-    public function login()
+    public function login(): JsonResponse
     {
-        $autheticated = auth()->attempt(
+        $authenticated = auth()->attempt(
             [
                 'email' => request()->email,
                 'password' => request()->password,
             ]
         );
 
-        if (!$autheticated) {
+        if (!$authenticated) {
             return response()->json('wrong email or password', 401);
         }
 
@@ -44,18 +45,18 @@ class AuthController extends Controller
         return response()->json('success', 200)->withCookie($cookie);
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         $cookie = cookie("access_token", '', 0, '/', config('auth.front_end_top_level_domain'), true, true, false, 'Strict');
 
         return response()->json('success', 200)->withCookie($cookie);
     }
 
-    public function me()
+    public function me(): JsonResponse
     {
         return response()->json(
             [
-                'message' => 'authenticated successfuly',
+                'message' => 'authenticated successfully',
                 'user' => jwtUser()
             ],
             200
